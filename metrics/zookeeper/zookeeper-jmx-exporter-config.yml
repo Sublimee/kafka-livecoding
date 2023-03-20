@@ -1,3 +1,5 @@
+hostPort: zookeeper:1099
+ssl: false
 lowercaseOutputName: true
 
 rules:

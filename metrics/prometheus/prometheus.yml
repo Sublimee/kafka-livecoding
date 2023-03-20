@@ -5,10 +5,10 @@ scrape_configs:
   - job_name: 'kafka'
     static_configs:
       - targets: [
-        'kafka-1:17071',
-        'kafka-2:27071',
-        'kafka-3:37071'
+        'kafka-1:7071',
+        'kafka-2:7071',
+        'kafka-3:7071'
       ]
   - job_name: 'zookeeper'
     static_configs:
-      - targets: [ 'zookeeper:7072' ]
+      - targets: [ 'zookeeper-jmx-exporter:7071' ]
