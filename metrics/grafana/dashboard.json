@@ -527,8 +527,8 @@
       "grid": {},
       "gridPos": {
         "h": 5,
-        "w": 6,
-        "x": 6,
+        "w": 8,
+        "x": 0,
         "y": 6
       },
       "hiddenSeries": false,
@@ -637,8 +637,8 @@
       "grid": {},
       "gridPos": {
         "h": 5,
-        "w": 6,
-        "x": 12,
+        "w": 8,
+        "x": 8,
         "y": 6
       },
       "hiddenSeries": false,
@@ -747,8 +747,8 @@
       "grid": {},
       "gridPos": {
         "h": 5,
-        "w": 6,
-        "x": 18,
+        "w": 8,
+        "x": 16,
         "y": 6
       },
       "hiddenSeries": false,
@@ -1503,20 +1503,22 @@
           "custom": {},
           "mappings": [
             {
-              "from": "1",
-              "id": 1,
-              "text": "Y",
-              "to": "999",
-              "type": 2,
-              "value": "3"
+              "options": {
+                "0": {
+                  "text": "N"
+                }
+              },
+              "type": "value"
             },
             {
-              "from": "0",
-              "id": 2,
-              "text": "N",
-              "to": "2",
-              "type": 1,
-              "value": "0"
+              "options": {
+                "from": 1,
+                "result": {
+                  "text": "Y"
+                },
+                "to": 999
+              },
+              "type": "range"
             }
           ],
           "thresholds": {
@@ -1703,13 +1705,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(zookeeper_inmemorydatatree_nodecount)",
+          "expr": "max(zookeeper_nodecount)",
           "interval": "1m",
           "legendFormat": "nodes",
           "refId": "A"
         },
         {
-          "expr": "max(zookeeper_inmemorydatatree_watchcount)",
+          "expr": "max(zookeeper_watchcount)",
           "hide": false,
           "interval": "1m",
           "legendFormat": "watches",
