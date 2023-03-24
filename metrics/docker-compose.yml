@@ -1,4 +1,4 @@
-version: '2.3'
+version: '3.9'
 services:
   zookeeper:
     image: wurstmeister/zookeeper:latest
@@ -13,7 +13,7 @@ services:
       JMXPORT: 1099
 
   zookeeper-jmx-exporter:
-    image: sscaling/jmx-prometheus-exporter
+    image: sscaling/jmx-prometheus-exporter:latest
     depends_on:
       - zookeeper
     ports:
@@ -24,7 +24,8 @@ services:
       - ./zookeeper/zookeeper-jmx-exporter-config.yml:/opt/jmx_exporter/config.yml
 
   kafka-1:
-    image: kafka_with_jmx:latest
+    image: kafka_with_jmx_exporter:latest
+    build: ./kafka
     depends_on:
       - zookeeper
     ports:
@@ -43,7 +44,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
 
   kafka-2:
-    image: kafka_with_jmx:latest
+    image: kafka_with_jmx_exporter:latest
     depends_on:
       - zookeeper
     ports:
@@ -62,7 +63,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
 
   kafka-3:
-    image: kafka_with_jmx:latest
+    image: kafka_with_jmx_exporter:latest
     depends_on:
       - zookeeper
     ports:
