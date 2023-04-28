@@ -39,6 +39,10 @@ cd kafka_2.13-3.4.0/
 2) стартовал и получил идентификатор:
 ```INFO [KafkaServer id=0] started (kafka.server.KafkaServer)```
 
-Если вы увидели эти строки в логе, то вы готовы к первой части практики. Теперь можете прервать выполнение ZooKeeper и Kafka в соответствующих консолях.
+Если вы увидели эти строки в логе, то вы готовы к первой части практики. Теперь можете прервать выполнение ZooKeeper и Kafka в соответствующих консолях, отправив сигнал SIGINT или завершить работу кластера штатно:
+```
+./bin/kafka-server-stop.sh config/server.properties
+./bin/zookeeper-server-stop.sh config/zookeeper.properties
+```
 
 Далее мы будем поднимать кластер Kafka с помощью docker compose. Убедитесь, что [кластер из трех брокеров Kafka и одной ноды ZooKeeper](https://github.com/Sublimee/kafka-livecoding/blob/main/simple-cluster/docker-compose.yml) успешно стартует. Вы уже знаете как это сделать (посмотреть в логи каждого контейнера с брокером Kafka по аналогии с тем, как мы делали это выше).
