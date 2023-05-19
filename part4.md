@@ -66,13 +66,13 @@ docker-compose logs kafka-1 | grep "no clean shutdown file was found"
 docker-compose stop zookeeper
 ```
 
-Записываем данные в топик и после прерываем команду Ctrl-C.
+Записываем данные в топик,после чего прерываем выполнение
 
 ```
 ./bin/kafka-console-producer.sh --topic test --bootstrap-server localhost:19092
 ```
 
-Читаем данные из топика. Там будет 0 messages, это мы увидим, прервав команду Ctrl-C.
+Читаем данные из топика. Там будет *0 messages*, это мы увидим, прервав выполнение
 
 ```
 ./bin/kafka-console-consumer.sh --topic test --bootstrap-server localhost:19092 --from-beginning
