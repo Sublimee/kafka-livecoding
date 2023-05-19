@@ -90,13 +90,13 @@ docker-compose stop zookeeper
 
 ## Эксперимент 4. Попытка создания топика при невозможности обеспечить *replication-factor*
 
-Создадим топик:
+Создадим топик
 
 ```
 ./bin/kafka-topics.sh --create --topic test --partitions 3 --bootstrap-server localhost:19092 --replication-factor 3
 ```
 
-Проверяем, что топик создан:
+Проверяем, что топик создан
 
 ```
 ./bin/kafka-topics.sh --describe --topic test --bootstrap-server localhost:19092
