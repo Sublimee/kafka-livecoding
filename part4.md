@@ -4,13 +4,13 @@
 
 ## Эксперимент 1. Останавливаем брокер Kafka штатно
 
-Останавливаем брокер Kafka штатно
+Останавливаем брокер Kafka штатно:
 
 ```
 docker-compose stop kafka-1
 ```
 
-Проверяем, что отключение произошло контролируемо
+Проверяем, что отключение произошло контролируемо:
 
 ```
 docker-compose logs kafka-1 | grep "Starting controlled shutdown"
@@ -18,7 +18,7 @@ docker-compose logs kafka-1 | grep "Starting controlled shutdown"
 
 Брокер Kafka по умолчанию выполняет контролируемое отключение, чтобы минимизировать перебои в обслуживании клиентов. Подробнее [здесь](https://www.confluent.io/blog/apache-kafka-supports-200k-partitions-per-cluster/#:~:text=The%20Kafka%20broker%20does%20a,it%27s%20about%20to%20shut%20down).
 
-При старте брокера мы должны увидеть сообщение следующего формата
+При старте брокера мы должны увидеть сообщение следующего формата:
 
 ```
 "Skipping recovery of ${logsToLoad.length} logs from $logDirAbsolutePath since clean shutdown file was found"
@@ -26,13 +26,13 @@ docker-compose logs kafka-1 | grep "Starting controlled shutdown"
 
 ## Эксперимент 2. Останавливаем брокер Kafka нештатно
 
-Останавливаем брокер Kafka нештатно
+Останавливаем брокер Kafka нештатно:
 
 ```
 docker-compose kill kafka-1
 ```
 
-При старте брокера мы должны увидеть сообщение следующего формата
+При старте брокера мы должны увидеть сообщение следующего формата:
 
 ```
 "Recovering ${logsToLoad.length} logs from $logDirAbsolutePath since no clean shutdown file was found")
@@ -48,37 +48,37 @@ docker-compose logs kafka-1 | grep "no clean shutdown file was found"
 
 ## Эксперимент 3. Останавливаем ZooKeeper
 
-Создаем топик
+Создаем топик:
 
 ```
 ./bin/kafka-topics.sh --create --topic test --partitions 1 --bootstrap-server localhost:19092
 ```
 
-Проверяем, что топик создан
+Проверяем, что топик создан:
 
 ```
 ./bin/kafka-topics.sh --describe --topic test --bootstrap-server localhost:19092
 ```
 
-Останавливаем ZooKeeper
+Останавливаем ZooKeeper:
 
 ```
 docker-compose stop zookeeper
 ```
 
-Записываем данные в топик,после чего прерываем выполнение
+Записываем данные в топик, после чего прерываем выполнение:
 
 ```
 ./bin/kafka-console-producer.sh --topic test --bootstrap-server localhost:19092
 ```
 
-Читаем данные из топика. Там будет *0 messages*, это мы увидим, прервав выполнение
+Читаем данные из топика. Там будет *0 messages*, это мы увидим, прервав выполнение:
 
 ```
 ./bin/kafka-console-consumer.sh --topic test --bootstrap-server localhost:19092 --from-beginning
 ```
 
-Пытаемся создать новый топик и получаем ошибку *ERROR org.apache.kafka.common.errors.TimeoutException*
+Пытаемся создать новый топик и получаем ошибку *ERROR org.apache.kafka.common.errors.TimeoutException*:
 
 ```
 ./bin/kafka-topics.sh --create --topic test-2 --partitions 1 --bootstrap-server localhost:19092
@@ -90,31 +90,31 @@ docker-compose stop zookeeper
 
 ## Эксперимент 4. Попытка создания топика при невозможности обеспечить *replication-factor*
 
-Создадим топик
+Создадим топик:
 
 ```
 ./bin/kafka-topics.sh --create --topic test --partitions 3 --bootstrap-server localhost:19092 --replication-factor 3
 ```
 
-Проверяем, что топик создан
+Проверяем, что топик создан:
 
 ```
 ./bin/kafka-topics.sh --describe --topic test --bootstrap-server localhost:19092
 ```
 
-Остановим один брокер
+Остановим один брокер:
 
 ```
 docker-compose stop kafka-1
 ```
 
-Пробуем создать еще один топик, и получим ошибку, связанную со слишком высоким фактором репликации
+Пробуем создать еще один топик, и получим ошибку, связанную со слишком высоким фактором репликации:
 
 ```
 ./bin/kafka-topics.sh --create --topic test-2 --partitions 3 --bootstrap-server localhost:29092 --replication-factor 3
 ```
 
-Пробуем создать топик снова с фактором репликации 2
+Пробуем создать топик снова с фактором репликации 2:
 
 ```
 ./bin/kafka-topics.sh --create --topic test-2 --partitions 3 --bootstrap-server localhost:29092 --replication-factor 2
